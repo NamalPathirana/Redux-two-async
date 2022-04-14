@@ -16,7 +16,7 @@ const Cart = () => {
           return (
             <CartItem
               item={{
-                id:item.id,
+                id:item.id
                 title: item.name,
                 quantity: item.quantity,
                 total: item.totalPrice,

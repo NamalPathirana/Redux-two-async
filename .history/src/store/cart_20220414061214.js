@@ -12,9 +12,10 @@ import { createSlice } from "@reduxjs/toolkit";
 //   ],}
 
 const initialCartState = {
-  items: [],
+  items: [
+  ],
   totalAmount: 0.0,
-  totalItems: 0,
+  totalItems:0,
 };
 
 const cartSlice = createSlice({
@@ -31,17 +32,12 @@ const cartSlice = createSlice({
       );
 
       if (existingItem) {
-        const itemQuantity = existingItem.quantity + 1;
-        const newItemTotalPrice = itemQuantity * existingItem.price;
+        const itemQuantity = existingItem.quantity+1;
 
-        const newItem = {
-          ...existingItem,
-          quantity: itemQuantity,
-          totalPrice: newItemTotalPrice,
-        };
+        const newItem = { ...existingItem, quantity: itemQuantity };
         const newItemsList = [
           ...state.items.filter((obj) => obj.id !== newItem.id),
-          newItem,
+          existingItem,
         ];
 
         state.items = newItemsList;
@@ -56,74 +52,54 @@ const cartSlice = createSlice({
         });
       }
 
-      state.totalItems = state.items.reduce((previousValue, currentItem) => {
-        return previousValue + currentItem.quantity;
-      }, 0);
+      state.totalItems = state.items.reduce((previousValue,currentItem)=>{return previousValue+currentItem.quantity},0);
 
       state.totalAmount = state.items.reduce((previousValue, currentItem) => {
         return previousValue + currentItem.totalPrice;
       }, 0);
     },
-    increaseQuantity(state, actions) {
+    increaseQuantity(state,actions){
       const existingItem = state.items.find(
         (item) => item.id === actions.payload.id
       );
       const newItemQuantity = existingItem.quantity + 1;
       const newItemTotalPrice = existingItem.price * newItemQuantity;
-      const newItem = {
-        ...existingItem,
-        quantity: newItemQuantity,
-        totalPrice: newItemTotalPrice,
-      };
-      const newItemList = [
-        ...state.items.filter((item) => {
-          return item.id !== existingItem.id;
-        }),
-        newItem,
-      ];
+      const newItem = {...existingItem,quantity:newItemQuantity,totalPrice:newItemTotalPrice};
+      const newItemList = [...state.items.filter((item)=>{ return item.id!==existingItem.id}),newItem];
       state.items = newItemList;
 
-      state.totalItems = state.items.reduce((previousValue, currentItem) => {
-        return previousValue + currentItem.quantity;
-      }, 0);
+      state.totalItems = state.items.reduce((previousValue,currentItem)=>{return previousValue+currentItem.quantity},0);
       state.totalAmount = state.items.reduce((previousValue, currentItem) => {
         return previousValue + currentItem.totalPrice;
       }, 0);
+      
     },
-    decreaseQuantity(state, actions) {
+    decreaseQuantity(state,actions){
+
       const existingItem = state.items.find(
         (item) => item.id === actions.payload.id
       );
 
-      const newItemQuantity = existingItem.quantity - 1;
+
+      let newItemQuantity;
+
+      if(existingItem.quantity>0)
+      newItemQuantity = existingItem.quantity - 1;
+      else
+      newItemQuantity = 0;
+
+
       const newItemTotalPrice = existingItem.price * newItemQuantity;
-      const newItem = {
-        ...existingItem,
-        quantity: newItemQuantity,
-        totalPrice: newItemTotalPrice,
-      };
+      const newItem = {...existingItem,quantity:newItemQuantity,totalPrice:newItemTotalPrice};
+      const newItemList = [...state.items.filter((item)=>{ return item.id!==existingItem.id}),newItem];
+      state.items = newItemList;
 
-      if (newItem.quantity > 0) {
-        const newItemList = [
-          ...state.items.filter((item) => {
-            return item.id !== existingItem.id;
-          }),
-          newItem,
-        ];
-        state.items = newItemList;
+      state.totalItems = state.items.reduce((previousValue,currentItem)=>{return previousValue+currentItem.quantity},0);
+      state.totalAmount = state.items.reduce((previousValue, currentItem) => {
+        return previousValue + currentItem.totalPrice;
+      }, 0);
 
-        state.totalItems = state.items.reduce((previousValue, currentItem) => {
-          return previousValue + currentItem.quantity;
-        }, 0);
-        state.totalAmount = state.items.reduce((previousValue, currentItem) => {
-          return previousValue + currentItem.totalPrice;
-        }, 0);
-      } else {
-        state.items = state.items.filter((item) => item.id !== existingItem.id);
-        state.totalItems = 0;
-        state.totalAmount = 0;
-      }
-    },
+    }
   },
 });
 

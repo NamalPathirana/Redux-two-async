@@ -11,7 +11,7 @@ const CartItem = (props) => {
   };
 
   const onDecreaseBtnHandler = () => {
-    dispatch(cartActions.decreaseQuantity({id}));
+    dispatch(cartActions.decreaseQuantity());
   };
 
   return (

@@ -1,17 +1,16 @@
 import classes from "./CartItem.module.css";
 import { useDispatch } from "react-redux";
-import { cartActions } from "../../store/cart";
+import cartActions from "../../store/cart";
 
 const CartItem = (props) => {
   const { title, quantity, total, price, id } = props.item;
   const dispatch = useDispatch();
 
   const onIncreaseBtnHandler = () => {
-    dispatch(cartActions.increaseQuantity({id}));
+    dispatch(cartActions.a(id));
   };
 
   const onDecreaseBtnHandler = () => {
-    dispatch(cartActions.decreaseQuantity({id}));
   };
 
   return (

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Products = (props) => {
   const dispatch = useDispatch();
 
+
   const cartItems = useSelector((state) => state.cart.items);
 
   const productList = [

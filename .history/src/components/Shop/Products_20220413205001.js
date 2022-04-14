@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Products = (props) => {
   const dispatch = useDispatch();
 
+
   const cartItems = useSelector((state) => state.cart.items);
 
   const productList = [
@@ -34,7 +35,7 @@ const Products = (props) => {
     const clickedItem = productList.filter((item)=>{ return item.id===id});
 
     dispatch(
-      cartActions.addItemToCart({
+      cartActions.addItemToCar({
         item: {
           id: id,
           name:clickedItem[0].name,

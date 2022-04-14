@@ -7,11 +7,11 @@ const CartItem = (props) => {
   const dispatch = useDispatch();
 
   const onIncreaseBtnHandler = () => {
-    dispatch(cartActions.increaseQuantity({id}));
+    dispatch(cartAction.increaseQuantity({id}));
   };
 
   const onDecreaseBtnHandler = () => {
-    dispatch(cartActions.decreaseQuantity({id}));
+    dispatch(cartAction.decreaseQuantity());
   };
 
   return (

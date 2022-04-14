@@ -120,8 +120,6 @@ const cartSlice = createSlice({
         }, 0);
       } else {
         state.items = state.items.filter((item) => item.id !== existingItem.id);
-        state.totalItems = 0;
-        state.totalAmount = 0;
       }
     },
   },
