@@ -1,0 +1,40 @@
+.notification {
+  background-color: #1a8ed1;
+  width: 100%;
+  height: 3rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 0.5rem 10%;
+  animation: notice;
+  animation-timing-function: ease-out;
+  animation-duration: 1s;
+  animation-fill-mode: backwards;
+}
+
+.notification h2,
+.notification p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.error {
+  background-color: #690000;
+}
+
+.success {
+  background-color: #1ad1b9;
+}
+
+@keyframes notice {
+  0% {
+    height: 0rem;
+    /* transform: translate(0rem, -5rem); */
+  }
+  100% {
+    height: 3rem;
+    /* transform: translate(0rem, 0rem); */
+  }
+}
